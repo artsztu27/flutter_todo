@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
+import '../providers/task_provider.dart';
+import 'package:provider/provider.dart';
+import '../models/task.dart';
 
-class TaskTile extends StatelessWidget {
-  final String title;
-  final bool isDone;
-  final Function(bool) onChanged;
+class TaskTile extends StatefulWidget {
+  final Task task;
 
-  TaskTile({
-    required this.title,
-    required this.isDone,
-    required this.onChanged,
-  });
+  const TaskTile(this.task, {super.key});
 
   @override
+  _TaskTileState createState() => _TaskTileState();
+}
+
+class _TaskTileState extends State<TaskTile> {
+  @override
   Widget build(BuildContext context) {
+    void _checkItem(bool? value) {
+      setState(() {
+        Provider.of<TaskProvider>(context, listen: false)
+            .changeStatus(widget.task.id);
+        //print('SET STATE ${widget.task.isDone.toString()}');
+      });
+    }
+
     return ListTile(
-      title: Text(title),
+      title: Text(widget.task.title),
       leading: Checkbox(
-        value: isDone,
-        onChanged: (value) {
-          // Implement task completion logic
-          print('value = $value');
-        },
+        value: widget.task.isDone,
+        onChanged: _checkItem,
       ),
     );
   }

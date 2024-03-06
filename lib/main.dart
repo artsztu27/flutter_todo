@@ -5,10 +5,12 @@ import 'screens/add_task_screen.dart';
 import 'providers/task_provider.dart';
 
 void main() {
-  runApp(MyTodoApp());
+  runApp(const MyTodoApp());
 }
 
 class MyTodoApp extends StatelessWidget {
+  const MyTodoApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -20,7 +22,7 @@ class MyTodoApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (ctx) => HomeScreen(),
+          '/': (ctx) => const HomeScreen(),
           '/add-task': (ctx) => AddTaskScreen(),
           // Add more routes if needed
         },

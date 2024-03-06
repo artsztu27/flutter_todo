@@ -13,7 +13,18 @@ class TaskProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Implement methods to update and delete tasks
+  void editTask(Task task) {
+    removeTask(task.id);
+    addTask(task);
+  }
 
-  // You can also add methods for fetching and managing tasks
+  void removeTask(String id) {
+    _tasks.removeWhere((task) => task.id == id);
+    notifyListeners();
+  }
+
+  void changeStatus(String id) {
+    int index = _tasks.indexWhere((task) => task.id == id);
+    _tasks[index].isDone = !_tasks[index].isDone;
+  }
 }
